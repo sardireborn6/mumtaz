@@ -31,48 +31,73 @@ function mapProduct(row: ProductRowWithImages): Product {
 
 /** Semua produk aktif, dipakai halaman katalog publik. */
 export async function getProducts(): Promise<Product[]> {
-  const rows = await prisma.product.findMany({
-    where: { active: true },
-    include: { images: true },
-    orderBy: { createdAt: "desc" },
-  });
-  return rows.map(mapProduct);
+  try {
+    const rows = await prisma.product.findMany({
+      where: { active: true },
+      include: { images: true },
+      orderBy: { createdAt: "desc" },
+    });
+    return rows.map(mapProduct);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return [];
+  }
 }
 
 /** Produk aktif & stok tersedia, dipakai section "Produk Unggulan" di landing page. */
 export async function getFeaturedProducts(limit = 6): Promise<Product[]> {
-  const rows = await prisma.product.findMany({
-    where: { active: true, stock: { gt: 0 } },
-    include: { images: true },
-    orderBy: { createdAt: "desc" },
-    take: limit,
-  });
-  return rows.map(mapProduct);
+  try {
+    const rows = await prisma.product.findMany({
+      where: { active: true, stock: { gt: 0 } },
+      include: { images: true },
+      orderBy: { createdAt: "desc" },
+      take: limit,
+    });
+    return rows.map(mapProduct);
+  } catch (error) {
+    console.error("Error fetching featured products:", error);
+    return [];
+  }
 }
 
 /** Satu produk aktif berdasar id/slug, dipakai halaman detail produk publik. */
 export async function getProductById(id: string): Promise<Product | null> {
-  const row = await prisma.product.findFirst({
-    where: { id, active: true },
-    include: { images: true },
-  });
-  return row ? mapProduct(row) : null;
+  try {
+    const row = await prisma.product.findFirst({
+      where: { id, active: true },
+      include: { images: true },
+    });
+    return row ? mapProduct(row) : null;
+  } catch (error) {
+    console.error("Error fetching product by id:", error);
+    return null;
+  }
 }
 
 /** Semua produk (termasuk nonaktif), dipakai tabel admin. */
 export async function getAllProductsForAdmin(): Promise<Product[]> {
-  const rows = await prisma.product.findMany({
-    include: { images: true },
-    orderBy: { createdAt: "desc" },
-  });
-  return rows.map(mapProduct);
+  try {
+    const rows = await prisma.product.findMany({
+      include: { images: true },
+      orderBy: { createdAt: "desc" },
+    });
+    return rows.map(mapProduct);
+  } catch (error) {
+    console.error("Error fetching admin products:", error);
+    return [];
+  }
 }
 
 /** Satu produk apa pun status aktifnya, dipakai form edit admin. */
 export async function getProductByIdForAdmin(id: string): Promise<Product | null> {
-  const row = await prisma.product.findUnique({
-    where: { id },
-    include: { images: true },
-  });
-  return row ? mapProduct(row) : null;
+  try {
+    const row = await prisma.product.findUnique({
+      where: { id },
+      include: { images: true },
+    });
+    return row ? mapProduct(row) : null;
+  } catch (error) {
+    console.error("Error fetching product by id for admin:", error);
+    return null;
+  }
 }
