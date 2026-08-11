@@ -1,0 +1,50 @@
+// Prisma schema — Mumtaz MacBook Store
+// learn more: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Product {
+  id              String   @id
+  name            String
+  category        String
+  variant         String
+  condition       String
+  conditionGrade  String?
+  chip            String
+  ram             String
+  storage         String
+  price           Int
+  stock           Int      @default(0)
+  // JSON-encoded array of branch ids from lib/config/site.ts (mis. ["cabang-1","cabang-2"]).
+  // Cabang tetap data statis, bukan tabel relasional — lihat plan Phase 4.
+  branchIds       String   @default("[]")
+  warrantyMonths  Int
+  description     String
+  active          Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  images ProductImage[]
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  url       String
+  order     Int     @default(0)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
