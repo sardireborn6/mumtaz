@@ -11,8 +11,8 @@ const models = [
     src: "/3d1.glb",
     poster: "",
     alt: "MacBook Air M2 — model 3D interaktif, geser untuk memutar",
-    cameraOrbit: "20deg 70deg 150%",
-    orientation: "0deg 50deg 0deg",
+    cameraOrbit: "50deg 70deg 150%",
+    orientation: "0deg 15deg 0deg",
   },
   {
     src: "/3d2.glb",
