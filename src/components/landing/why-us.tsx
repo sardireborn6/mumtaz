@@ -31,24 +31,24 @@ const points = [
 
 export function WhyUs() {
   return (
-    <section id="tentang" className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+    <section id="tentang" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <Reveal className="max-w-xl">
-        <p className="text-sm font-medium text-brand-700">Kenapa Pilih Kami</p>
-        <h2 className="mt-2 text-3xl font-semibold tracking-tight text-foreground">
+        <p className="text-xs uppercase font-bold tracking-[0.2em] text-brand-700">Kenapa Pilih Kami</p>
+        <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
           Alasan pelanggan percaya Mumtaz MacBook Store
         </h2>
       </Reveal>
 
-      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {points.map((p, i) => (
           <Reveal key={p.title} delay={i * 0.05}>
-            <div className="flex h-full gap-4 rounded-2xl border border-border bg-card p-6 transition-shadow hover:shadow-md">
-              <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-50">
+            <div className="flex h-full gap-5 rounded-3xl border border-white/50 bg-white/60 p-6 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-brand-300/40 hover:shadow-[0_20px_40px_-15px_rgba(15,118,110,0.08)]">
+              <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-50 to-brand-100/50 border border-brand-100/40 shadow-inner">
                 <p.icon className="size-5 text-brand-700" strokeWidth={1.5} />
               </div>
               <div>
-                <h3 className="font-semibold text-foreground">{p.title}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                <h3 className="text-lg font-bold text-foreground tracking-tight">{p.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   {p.description}
                 </p>
               </div>

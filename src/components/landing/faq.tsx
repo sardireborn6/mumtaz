@@ -10,7 +10,7 @@ const faqs = [
   {
     question: "Berapa lama garansi yang diberikan?",
     answer:
-      "Unit baru mendapat garansi resmi hingga 12 bulan, unit second mendapat garansi toko hingga 3 bulan. Detail cakupan garansi dijelaskan saat konsultasi. TODO: sesuaikan durasi & cakupan dengan kebijakan garansi asli.",
+      "Unit baru mendapat garansi resmi hingga 12 bulan, unit second mendapat garansi toko hingga 3 bulan. Detail cakupan garansi dijelaskan secara lengkap saat Anda berkonsultasi dengan tim kami.",
   },
   {
     question: "Bagaimana cara beli unit secara online?",
@@ -36,10 +36,10 @@ const faqs = [
 
 export function FAQ() {
   return (
-    <section className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
+    <section className="mx-auto max-w-3xl px-4 py-24 sm:px-6 lg:px-8">
       <Reveal className="text-center">
-        <p className="text-sm font-medium text-brand-700">FAQ</p>
-        <h2 className="mt-2 text-3xl font-semibold tracking-tight text-foreground">
+        <p className="text-xs uppercase font-bold tracking-[0.2em] text-brand-700">FAQ</p>
+        <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
           Pertanyaan yang sering ditanyakan
         </h2>
       </Reveal>

@@ -17,17 +17,17 @@ export default async function KatalogPage({
   const products = await getProducts();
 
   return (
-    <main className="flex-1">
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-        <p className="text-sm font-medium text-brand-700">Katalog Produk</p>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+    <main className="flex-1 bg-[#FAFAF9]">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <p className="text-xs uppercase font-bold tracking-[0.2em] text-brand-700">Katalog Produk</p>
+        <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl font-heading">
           Temukan unit Apple yang sesuai kebutuhan Anda
         </h1>
-        <p className="mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">
-          Semua unit sudah dicek fisik & fungsi, bergaransi resmi dari toko.
+        <p className="mt-3 max-w-xl text-sm text-muted-foreground sm:text-base leading-relaxed">
+          Semua unit sudah melalui pemeriksaan fisik &amp; fungsi secara menyeluruh dan dilengkapi garansi resmi dari toko.
         </p>
 
-        <div className="mt-8">
+        <div className="mt-12">
           <CatalogView products={products} initialCategory={kategori} />
         </div>
       </div>

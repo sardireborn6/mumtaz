@@ -32,14 +32,14 @@ export function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+      className={`sticky top-0 z-50 w-full transition-all duration-500 ${
         scrolled
-          ? "border-b border-border/80 bg-background/85 shadow-sm backdrop-blur-xl"
-          : "border-b border-transparent bg-background/60 backdrop-blur-md"
+          ? "border-b border-border/40 bg-white/70 shadow-sm backdrop-blur-xl"
+          : "border-b border-transparent bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2 shrink-0">
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Link href="/" className="flex items-center gap-2 shrink-0 transition-transform duration-300 hover:scale-[1.02]">
           <Image
             src="/logo.png"
             alt={siteConfig.name}
@@ -55,7 +55,7 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-foreground/70 transition-colors hover:text-foreground"
+              className="text-sm font-semibold tracking-wide text-foreground/70 transition-all duration-300 hover:text-brand-700 relative py-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-brand-700 after:transition-all after:duration-300 hover:after:w-full"
             >
               {link.label}
             </Link>
@@ -65,7 +65,7 @@ export function Navbar() {
         <div className="hidden items-center gap-3 md:flex">
           <Button
             asChild
-            className="bg-brand-700 text-white hover:bg-brand-600"
+            className="bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white shadow-md shadow-brand-900/10 hover:shadow-lg hover:shadow-brand-900/20 transition-all duration-300 rounded-full px-6 shimmer-button"
           >
             <a href={waLink} target="_blank" rel="noopener noreferrer">
               <WhatsAppIcon className="size-4" />
@@ -95,7 +95,7 @@ export function Navbar() {
                   </Link>
                 </SheetClose>
               ))}
-              <Button asChild className="mt-4 bg-brand-700 text-white hover:bg-brand-600">
+              <Button asChild className="mt-4 bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white rounded-full px-6 transition-all duration-300 shadow-md">
                 <a href={waLink} target="_blank" rel="noopener noreferrer">
                   <WhatsAppIcon className="size-4" />
                   Hubungi via WhatsApp

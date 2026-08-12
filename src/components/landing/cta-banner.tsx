@@ -25,7 +25,7 @@ export function CtaBanner() {
   }
 
   return (
-    <section id="kontak" className="mx-auto max-w-6xl px-4 pb-4 sm:px-6 lg:px-8">
+    <section id="kontak" className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
       <Reveal>
         <div
           ref={panelRef}
@@ -74,19 +74,19 @@ export function CtaBanner() {
           />
 
           <div className="relative">
-            <div className="mx-auto flex size-14 items-center justify-center rounded-2xl border border-brand-700/15 bg-white/60 backdrop-blur-sm">
+            <div className="mx-auto flex size-14 items-center justify-center rounded-2xl border border-brand-700/15 bg-white/60 backdrop-blur-sm shadow-sm">
               <WhatsAppIcon className="size-6 text-brand-700" />
             </div>
 
-            <h2 className="mx-auto mt-6 max-w-xl text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mx-auto mt-6 max-w-xl text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl font-heading">
               Siap beli, jual, atau tukar-tambah unit Apple Anda?
             </h2>
-            <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground sm:text-base">
+            <p className="mx-auto mt-4 max-w-md text-sm text-muted-foreground sm:text-base leading-relaxed">
               Tim kami siap bantu dari konsultasi sampai serah terima unit di cabang terdekat.
             </p>
-            <Button asChild size="lg" className="mt-8 bg-brand-700 text-white hover:bg-brand-600">
+            <Button asChild size="lg" className="mt-8 bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white rounded-full px-8 py-7 text-base font-semibold shadow-lg shadow-brand-900/10 hover:shadow-xl hover:shadow-brand-900/20 transition-all duration-300 shimmer-button">
               <a href={waLink} target="_blank" rel="noopener noreferrer">
-                <WhatsAppIcon className="size-4" />
+                <WhatsAppIcon className="size-5" />
                 Chat via WhatsApp Sekarang
               </a>
             </Button>
