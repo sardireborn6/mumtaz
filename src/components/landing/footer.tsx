@@ -53,10 +53,8 @@ export function Footer() {
                 >
                   {s.label === "Instagram" ? (
                     <InstagramIcon className="size-4" />
-                  ) : s.label === "TikTok" ? (
-                    <TikTokIcon className="size-4" />
                   ) : (
-                    <span>{s.label}</span>
+                    <TikTokIcon className="size-4" />
                   )}
                 </a>
               ))}

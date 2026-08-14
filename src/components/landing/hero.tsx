@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MapPin, ShieldCheck, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
+import { siteConfig } from "@/lib/config/site";
 import { BranchSelectorDialog } from "./branch-selector-dialog";
 import { HeroModelCycle } from "./hero-model-cycle";
 
