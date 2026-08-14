@@ -19,6 +19,7 @@ function mapProduct(row: ProductRowWithImages): Product {
     conditionGrade: (row.conditionGrade as ConditionGrade | null) ?? undefined,
     specs: { chip: row.chip, ram: row.ram, storage: row.storage },
     price: row.price,
+    originalPrice: row.originalPrice ?? undefined,
     stock: row.stock,
     branchIds: JSON.parse(row.branchIds) as string[],
     warrantyMonths: row.warrantyMonths,

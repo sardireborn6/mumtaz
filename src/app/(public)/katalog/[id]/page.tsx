@@ -5,9 +5,11 @@ import { ChevronRight, MapPin, ShieldCheck, Cpu, Layers, HardDrive } from "lucid
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
+import { BranchSelectorDialog } from "@/components/landing/branch-selector-dialog";
 import { ProductGallery } from "@/components/katalog/product-gallery";
 import { ProductCard } from "@/components/katalog/product-card";
-import { branches, buildWhatsAppLink } from "@/lib/config/site";
+import { ProductPrice } from "@/components/katalog/product-price";
+import { branches } from "@/lib/config/site";
 import { getProductById, getProducts } from "@/lib/data/get-products";
 import { formatRupiah } from "@/lib/format";
 
@@ -42,9 +44,6 @@ export default async function ProductDetailPage({
 
   const inStock = product.stock > 0;
   const availableBranches = branches.filter((b) => product.branchIds.includes(b.id));
-  const waLink = buildWhatsAppLink(
-    `Halo, saya ingin tanya lebih lanjut soal ${product.name} (${product.variant}) yang saya lihat di katalog.`
-  );
 
   const allProducts = await getProducts();
   const relatedProducts = allProducts
@@ -114,9 +113,7 @@ export default async function ProductDetailPage({
               </h1>
               <p className="mt-1 text-base text-muted-foreground">{product.variant}</p>
 
-              <p className="mt-6 text-3xl font-extrabold tracking-tight text-brand-700 font-heading">
-                {formatRupiah(product.price)}
-              </p>
+              <ProductPrice price={product.price} originalPrice={product.originalPrice} size="lg" className="mt-6" />
 
               {/* Advanced visual spec badges */}
               <div className="mt-6 grid grid-cols-3 gap-4">
@@ -160,12 +157,15 @@ export default async function ProductDetailPage({
             </div>
 
             <div className="mt-10 flex flex-col gap-3 sm:flex-row border-t border-border/40 pt-6">
-              <Button asChild size="lg" className="bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white rounded-full px-8 py-7 text-base font-semibold shadow-lg shadow-brand-900/10 hover:shadow-xl hover:shadow-brand-900/20 transition-all duration-300 shimmer-button">
-                <a href={waLink} target="_blank" rel="noopener noreferrer">
+              <BranchSelectorDialog
+                branches={availableBranches}
+                customMessage={`Halo, saya ingin tanya lebih lanjut soal ${product.name} (${product.variant}) yang saya lihat di katalog.`}
+              >
+                <Button size="lg" className="w-full bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white rounded-full px-8 py-7 text-base font-semibold shadow-lg shadow-brand-900/10 hover:shadow-xl hover:shadow-brand-900/20 transition-all duration-300 shimmer-button sm:w-auto">
                   <WhatsAppIcon className="size-4" />
                   {inStock ? "Tanya via WhatsApp" : "Tanya Ketersediaan"}
-                </a>
-              </Button>
+                </Button>
+              </BranchSelectorDialog>
               <Button asChild size="lg" variant="outline" className="rounded-full px-8 py-7 text-base font-semibold border-border hover:bg-secondary/60 transition-all duration-300 bg-white/40">
                 <Link href="/katalog">Kembali ke Katalog</Link>
               </Button>

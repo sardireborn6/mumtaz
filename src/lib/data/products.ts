@@ -20,6 +20,7 @@ export type Product = {
     storage: string;
   };
   price: number;
+  originalPrice?: number;
   stock: number;
   branchIds: string[];
   warrantyMonths: number;

@@ -2,19 +2,18 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
-import { branches, buildWhatsAppLink } from "@/lib/config/site";
+import { BranchSelectorDialog } from "@/components/landing/branch-selector-dialog";
+import { branches } from "@/lib/config/site";
 import { type Product } from "@/lib/data/products";
-import { formatRupiah } from "@/lib/format";
+import { ProductPrice } from "./product-price";
 import { ProductVisual } from "./product-visual";
 
 export function ProductCard({ product }: { product: Product }) {
   const inStock = product.stock > 0;
+  const productBranches = branches.filter((b) => product.branchIds.includes(b.id));
   const branchNames = product.branchIds
     .map((id) => branches.find((b) => b.id === id)?.name.split("— ")[1])
     .filter(Boolean);
-  const waLink = buildWhatsAppLink(
-    `Halo, saya tertarik dengan ${product.name} (${product.variant}) yang tersedia di katalog. Apakah masih ready?`
-  );
 
   return (
     <div className="flex h-full flex-col rounded-3xl border border-white/50 bg-white/70 p-4 shadow-sm backdrop-blur-md transition-all duration-500 hover:-translate-y-2 hover:border-brand-300/60 hover:shadow-[0_22px_40px_-15px_rgba(15,118,110,0.12)] group">
@@ -43,9 +42,7 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
         <p className="text-sm font-medium text-muted-foreground">{product.variant}</p>
 
-        <p className="mt-3 text-xl font-bold tracking-tight text-foreground">
-          {formatRupiah(product.price)}
-        </p>
+        <ProductPrice price={product.price} originalPrice={product.originalPrice} className="mt-3" />
 
         {branchNames.length > 0 && (
           <p className="mt-2 text-xs text-muted-foreground flex items-center gap-1">
@@ -58,12 +55,15 @@ export function ProductCard({ product }: { product: Product }) {
           <Button asChild variant="outline" className="w-full rounded-full border-border hover:bg-secondary/80 transition-all duration-300">
             <Link href={`/katalog/${product.id}`}>Lihat Detail</Link>
           </Button>
-          <Button asChild className="w-full bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white rounded-full transition-all duration-300 shadow-md shadow-brand-900/10 hover:shadow-lg hover:shadow-brand-900/20 shimmer-button">
-            <a href={waLink} target="_blank" rel="noopener noreferrer">
+          <BranchSelectorDialog
+            branches={productBranches}
+            customMessage={`Halo, saya tertarik dengan ${product.name} (${product.variant}) yang tersedia di katalog. Apakah masih ready?`}
+          >
+            <Button className="w-full bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white rounded-full transition-all duration-300 shadow-md shadow-brand-900/10 hover:shadow-lg hover:shadow-brand-900/20 shimmer-button">
               <WhatsAppIcon className="size-4" />
               {inStock ? "Chat Sekarang" : "Tanya Ketersediaan"}
-            </a>
-          </Button>
+            </Button>
+          </BranchSelectorDialog>
         </div>
       </div>
     </div>

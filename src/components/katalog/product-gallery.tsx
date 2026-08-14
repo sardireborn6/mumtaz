@@ -7,7 +7,7 @@ export function ProductGallery({ product }: { product: Product }) {
       <ProductVisual product={product} className="aspect-square w-full" />
       {product.images.length === 0 && (
         <p className="mt-3 text-center text-xs text-muted-foreground">
-          Foto studio kategori — hubungi kami untuk foto/video unit sebenarnya.
+          hubungi kami untuk foto/video unit selengkapnya.
         </p>
       )}
     </div>

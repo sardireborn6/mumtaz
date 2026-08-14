@@ -19,11 +19,11 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: {
-    default: "Mumtaz MacBook Store — Apple Reseller Terpercaya, 4 Cabang di Jawa",
+    default: "Mumtaz MacBook Store — Apple Reseller Terpercaya di Jawa",
     template: "%s | Mumtaz MacBook Store",
   },
   description:
-    "Jual beli MacBook, iMac, Mac Mini, dan iPad baru & second, bergaransi, dari toko resmi Mumtaz Group dengan 4 cabang di Jawa.",
+    "Jual beli MacBook, iMac, Mac Mini, dan iPad baru & second, bergaransi, dari toko resmi Mumtaz Group yang tersebar di beberapa kota di Jawa.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

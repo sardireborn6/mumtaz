@@ -1,31 +1,36 @@
-import { ShieldCheck, SearchCheck, RefreshCcw, Wallet, Wrench } from "lucide-react";
+import { ShieldCheck, SearchCheck, RefreshCcw, Wallet, Wrench, Truck, HeartHandshake } from "lucide-react";
 import { Reveal } from "./reveal";
 
 const points = [
   {
     icon: ShieldCheck,
     title: "Unit bergaransi",
-    description: "Setiap unit baru maupun second dilengkapi garansi resmi dari toko.",
+    description: "Garansi mencakup seluruh kerusakan unit selama bukan disebabkan human error",
   },
   {
     icon: SearchCheck,
-    title: "Cek fisik & fungsi",
-    description: "Diperiksa menyeluruh sebelum dijual — baterai, layar, hingga port.",
+    title: "Kualitas Terjamin",
+    description: "Diperiksa secara menyeluruh sebelum dijual mulai dari baterai, layar, hingga semua port.",
   },
   {
     icon: RefreshCcw,
-    title: "Bisa tukar tambah",
+    title: "Layanan tukar tambah",
     description: "Tukar unit lama Anda dengan MacBook, iMac, atau iPad terbaru.",
   },
   {
-    icon: Wallet,
-    title: "Pembayaran fleksibel",
-    description: "Tunai, transfer, hingga cicilan — sesuaikan dengan kebutuhan Anda.",
+    icon: HeartHandshake,
+    title: "Service Excellence",
+    description: "Memberikan pelayanan yang ramah, cepat, dan solutif.",
   },
   {
     icon: Wrench,
-    title: "Teknisi berpengalaman",
-    description: "Tim teknisi khusus perangkat Apple menangani setiap unit yang masuk.",
+    title: "Teknisi Profesional",
+    description: "Tim teknisi Berpengalaman siap menangani setiap unit yang masuk.",
+  },
+  {
+    icon: Truck,
+    title: "Pengiriman Cepat & Aman",
+    description: "Perlindungan penuh dalam pengemasan untuk pengiriman cepat sampai ke tangan Anda.",
   },
 ];
 

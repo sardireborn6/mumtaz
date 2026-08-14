@@ -25,7 +25,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { formatRupiah } from "@/lib/format";
+import { ProductPrice } from "@/components/katalog/product-price";
 import type { Product } from "@/lib/data/products";
 import { deleteProduct, toggleProductActive, updateProductStock } from "@/app/admin/(dashboard)/produk/actions";
 
@@ -95,7 +95,9 @@ export function ProductTable({ products }: { products: Product[] }) {
                     {product.category} · {product.condition}
                   </p>
                 </TableCell>
-                <TableCell>{formatRupiah(product.price)}</TableCell>
+                <TableCell>
+                  <ProductPrice price={product.price} originalPrice={product.originalPrice} size="sm" />
+                </TableCell>
                 <TableCell>
                   <Input
                     type="number"

@@ -121,8 +121,20 @@ export function ProductForm({
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="price">Harga (Rp)</Label>
+          <Label htmlFor="price">Harga Jual (Rp)</Label>
           <Input id="price" name="price" type="number" min={0} defaultValue={product?.price} required />
+        </div>
+
+        <div className="flex flex-col gap-1.5">
+          <Label htmlFor="originalPrice">Harga Coret (opsional)</Label>
+          <Input
+            id="originalPrice"
+            name="originalPrice"
+            type="number"
+            min={0}
+            defaultValue={product?.originalPrice ?? ""}
+            placeholder="Kosongkan jika tidak ada promo"
+          />
         </div>
 
         <div className="flex flex-col gap-1.5">

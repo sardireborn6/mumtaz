@@ -21,6 +21,7 @@ model Product {
   ram             String
   storage         String
   price           Int
+  originalPrice   Int?
   stock           Int      @default(0)
   // JSON-encoded array of branch ids from lib/config/site.ts (mis. ["cabang-1","cabang-2"]).
   // Cabang tetap data statis, bukan tabel relasional — lihat plan Phase 4.

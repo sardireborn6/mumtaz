@@ -9,7 +9,7 @@ export const siteConfig = {
   // TODO: ganti nomor telepon utama untuk tombol "Telepon"
   phoneNumber: "6285177153913",
   foundedYear: 2019, // TODO: ganti tahun berdiri asli
-  unitsSold: "10.000+", // TODO: ganti angka unit terjual asli (atau hapus klaim jika belum ada datanya)
+  unitsSold: "15.000+", // TODO: ganti angka unit terjual asli (atau hapus klaim jika belum ada datanya)
 } as const;
 
 export function buildWhatsAppLink(message: string, number: string = siteConfig.whatsappNumber) {

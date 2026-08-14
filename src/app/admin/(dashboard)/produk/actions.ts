@@ -13,23 +13,36 @@ import {
   CONDITION_GRADES,
 } from "@/lib/data/products";
 
-const productSchema = z.object({
-  name: z.string().min(2, "Nama produk minimal 2 karakter."),
-  category: z.enum(PRODUCT_CATEGORIES as [string, ...string[]]),
-  variant: z.string().min(1, "Varian wajib diisi."),
-  condition: z.enum(PRODUCT_CONDITIONS as [string, ...string[]]),
-  conditionGrade: z.union([z.enum(CONDITION_GRADES as [string, ...string[]]), z.literal("")]),
-  chip: z.string().min(1, "Chip wajib diisi."),
-  ram: z.string().min(1, "RAM wajib diisi."),
-  storage: z.string().min(1, "Storage wajib diisi."),
-  price: z.coerce.number().int().positive("Harga harus lebih dari 0."),
-  stock: z.coerce.number().int().min(0),
-  warrantyMonths: z.coerce.number().int().min(0),
-  description: z.string().min(1, "Deskripsi wajib diisi."),
-  active: z.union([z.literal("on"), z.null()]).optional(),
-  branchIds: z.array(z.string()).default([]),
-  existingImages: z.string().default("[]"),
-});
+const productSchema = z
+  .object({
+    name: z.string().min(2, "Nama produk minimal 2 karakter."),
+    category: z.enum(PRODUCT_CATEGORIES as [string, ...string[]]),
+    variant: z.string().min(1, "Varian wajib diisi."),
+    condition: z.enum(PRODUCT_CONDITIONS as [string, ...string[]]),
+    conditionGrade: z.union([z.enum(CONDITION_GRADES as [string, ...string[]]), z.literal("")]),
+    chip: z.string().min(1, "Chip wajib diisi."),
+    ram: z.string().min(1, "RAM wajib diisi."),
+    storage: z.string().min(1, "Storage wajib diisi."),
+    price: z.coerce.number().int().positive("Harga harus lebih dari 0."),
+    originalPrice: z
+      .string()
+      .optional()
+      .transform((v) => (v && v.trim() !== "" ? Number(v) : null))
+      .refine(
+        (v) => v === null || (Number.isInteger(v) && v > 0),
+        "Harga coret harus lebih dari 0."
+      ),
+    stock: z.coerce.number().int().min(0),
+    warrantyMonths: z.coerce.number().int().min(0),
+    description: z.string().min(1, "Deskripsi wajib diisi."),
+    active: z.union([z.literal("on"), z.null()]).optional(),
+    branchIds: z.array(z.string()).default([]),
+    existingImages: z.string().default("[]"),
+  })
+  .refine((data) => data.originalPrice === null || data.originalPrice > data.price, {
+    message: "Harga coret harus lebih besar dari harga jual.",
+    path: ["originalPrice"],
+  });
 
 export type ProductFormState = { error?: string } | undefined;
 
@@ -44,6 +57,7 @@ function parseFormData(formData: FormData) {
     ram: formData.get("ram"),
     storage: formData.get("storage"),
     price: formData.get("price"),
+    originalPrice: formData.get("originalPrice") ?? "",
     stock: formData.get("stock"),
     warrantyMonths: formData.get("warrantyMonths"),
     description: formData.get("description"),
@@ -88,6 +102,7 @@ export async function createProduct(
       ram: data.ram,
       storage: data.storage,
       price: data.price,
+      originalPrice: data.originalPrice,
       stock: data.stock,
       branchIds: JSON.stringify(data.branchIds),
       warrantyMonths: data.warrantyMonths,
@@ -155,6 +170,7 @@ export async function updateProduct(
         ram: data.ram,
         storage: data.storage,
         price: data.price,
+        originalPrice: data.originalPrice,
         stock: data.stock,
         branchIds: JSON.stringify(data.branchIds),
         warrantyMonths: data.warrantyMonths,

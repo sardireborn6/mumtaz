@@ -1,11 +1,11 @@
-import { branches, siteConfig } from "@/lib/config/site";
+import { siteConfig } from "@/lib/config/site";
 import { Reveal } from "./reveal";
 
 const currentYear = new Date().getFullYear();
 
 // TODO: ganti angka berikut dengan data asli — jangan tampilkan klaim yang belum bisa dibuktikan.
 const stats = [
-  { value: `${branches.length}`, label: "Cabang di Jawa" },
+  { value: "5000+", label: "Review On google Maps" },
   { value: `${Math.max(currentYear - siteConfig.foundedYear, 1)}+`, label: "Tahun beroperasi" },
   { value: siteConfig.unitsSold, label: "Unit terjual" },
   { value: "100%", label: "Unit dicek fisik & fungsi" },
