@@ -11,17 +11,21 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
-import { branches, buildWhatsAppLink } from "@/lib/config/site";
+import { branches as defaultBranches, buildWhatsAppLink, type Branch } from "@/lib/config/site";
 
 interface BranchSelectorDialogProps {
   children: React.ReactNode;
   customMessage?: string;
+  branches?: Branch[];
 }
 
 export function BranchSelectorDialog({
   children,
   customMessage = "Halo, saya ingin konsultasi tentang unit Apple.",
+  branches = defaultBranches,
 }: BranchSelectorDialogProps) {
+  const branchList = branches.length > 0 ? branches : defaultBranches;
+
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -36,7 +40,7 @@ export function BranchSelectorDialog({
         </DialogHeader>
 
         <div className="mt-2 flex flex-col gap-3">
-          {branches.map((branch) => {
+          {branchList.map((branch) => {
             const waUrl = buildWhatsAppLink(
               `${customMessage} (${branch.name})`,
               branch.whatsappNumber

@@ -9,9 +9,13 @@ import { Testimonials } from "@/components/landing/testimonials";
 import { FAQ } from "@/components/landing/faq";
 import { CtaBanner } from "@/components/landing/cta-banner";
 import { getFeaturedProducts } from "@/lib/data/get-products";
+import { getBranches } from "@/lib/data/get-branches";
 
 export default async function Home() {
-  const featuredProducts = await getFeaturedProducts();
+  const [featuredProducts, branches] = await Promise.all([
+    getFeaturedProducts(),
+    getBranches(),
+  ]);
 
   return (
     <main className="flex-1">
@@ -21,7 +25,7 @@ export default async function Home() {
       <FeaturedProducts products={featuredProducts} />
       <WhyUs />
       <Process />
-      <Branches />
+      <Branches branches={branches} />
       <Testimonials />
       <FAQ />
       <CtaBanner />

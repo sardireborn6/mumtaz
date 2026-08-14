@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Phone } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
-import { branches, buildWhatsAppLink, navLinks, siteConfig, socials } from "@/lib/config/site";
+import { branches as defaultBranches, buildWhatsAppLink, navLinks, siteConfig, socials, type Branch } from "@/lib/config/site";
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -22,8 +22,9 @@ function TikTokIcon({ className }: { className?: string }) {
   );
 }
 
-export function Footer() {
+export function Footer({ branches = defaultBranches }: { branches?: Branch[] }) {
   const year = new Date().getFullYear();
+  const branchList = branches.length > 0 ? branches : defaultBranches;
 
   return (
     <footer className="border-t border-border bg-[#F5F5F3]">
@@ -80,7 +81,7 @@ export function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-foreground">Cabang Kami</h3>
             <ul className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2">
-              {branches.map((branch) => (
+              {branchList.map((branch) => (
                 <li key={branch.id} className="text-sm">
                   <p className="font-medium text-foreground">{branch.name}</p>
                   <p className="mt-1 flex items-start gap-1.5 text-muted-foreground">

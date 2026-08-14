@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { branches } from "@/lib/config/site";
+import { branches as defaultBranches, type Branch } from "@/lib/config/site";
 import {
   PRODUCT_CATEGORIES,
   PRODUCT_CONDITIONS,
@@ -27,10 +27,13 @@ import type { ProductFormState } from "@/app/admin/(dashboard)/produk/actions";
 export function ProductForm({
   product,
   action,
+  branches = defaultBranches,
 }: {
-  product?: Product;
-  action: (prevState: ProductFormState, formData: FormData) => Promise<ProductFormState>;
+  product?: Product | null;
+  action: (state: ProductFormState, formData: FormData) => Promise<ProductFormState>;
+  branches?: Branch[];
 }) {
+  const branchList = branches.length > 0 ? branches : defaultBranches;
   const [state, formAction, pending] = useActionState<ProductFormState, FormData>(
     action,
     undefined
@@ -169,14 +172,14 @@ export function ProductForm({
       <div>
         <Label>Tersedia di Cabang</Label>
         <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {branches.map((b) => (
+          {branchList.map((b) => (
             <label key={b.id} className="flex items-center gap-2 text-sm text-foreground">
               <Checkbox
                 name="branchIds"
                 value={b.id}
                 defaultChecked={product?.branchIds.includes(b.id)}
               />
-              {b.name.split("— ")[1]}
+              {b.name.includes("— ") ? b.name.split("— ")[1] : b.name}
             </label>
           ))}
         </div>

@@ -216,9 +216,66 @@ async function seedAdmin() {
   console.log(`Akun admin "${username}" siap dipakai login.`);
 }
 
+const defaultBranches = [
+  {
+    id: "Pusat",
+    name: "Mumtaz MacBook Store Jogja",
+    address: "Jl. Anggajaya 2 No.110, Sanggrahan, Condongcatur, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55283",
+    hours: "Senin–Minggu, 09.00–21.00 WIB",
+    whatsappNumber: "6285177153913",
+    mapsUrl: "https://maps.app.goo.gl/W3AgKZF5f4eyTzYt6",
+    order: 1,
+  },
+  {
+    id: "cabang-1",
+    name: "Mumtaz MacBook Store Surabaya",
+    address: "Jl. Rungkut Menanggal Harapan B No.J-5, Rungkut Menanggal, Kec. Gn. Anyar, Surabaya, Jawa Timur 60293",
+    hours: "Senin–Minggu, 09.00–21.00 WIB",
+    whatsappNumber: "6285177153913",
+    mapsUrl: "https://maps.app.goo.gl/TyKhpiY4snMCWvmd9",
+    order: 2,
+  },
+  {
+    id: "cabang-2",
+    name: "Mumtaz MacBook Store Semarang",
+    address: "Jl. Tirto Agung No.52, Pedalangan, Kec. Banyumanik, Kota Semarang, Jawa Tengah 50268",
+    hours: "Senin–Minggu, 09.00–21.00 WIB",
+    whatsappNumber: "6285177153913",
+    mapsUrl: "https://maps.app.goo.gl/kk97gbbzNGhkHCpc9",
+    order: 3,
+  },
+];
+
+async function seedBranches() {
+  for (const b of defaultBranches) {
+    await prisma.branch.upsert({
+      where: { id: b.id },
+      update: {
+        name: b.name,
+        address: b.address,
+        hours: b.hours,
+        whatsappNumber: b.whatsappNumber,
+        mapsUrl: b.mapsUrl,
+        order: b.order,
+      },
+      create: {
+        id: b.id,
+        name: b.name,
+        address: b.address,
+        hours: b.hours,
+        whatsappNumber: b.whatsappNumber,
+        mapsUrl: b.mapsUrl,
+        order: b.order,
+      },
+    });
+  }
+  console.log(`Seeded ${defaultBranches.length} cabang.`);
+}
+
 async function main() {
   await seedProducts();
   await seedAdmin();
+  await seedBranches();
 }
 
 main()
