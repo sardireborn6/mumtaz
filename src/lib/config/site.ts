@@ -3,13 +3,13 @@
 export const siteConfig = {
   name: "Mumtaz MacBook Store",
   group: "Mumtaz Group",
-  tagline: "Apple reseller terpercaya, bergaransi, 4 cabang di Jawa",
+  tagline: "Orriginal Apple, bergaransi",
   // TODO: ganti nomor WhatsApp utama (format 62xxxxxxxxxx, tanpa "+" atau "0" di depan)
-  whatsappNumber: "6281234567890",
+  whatsappNumber: "6285177153913",
   // TODO: ganti nomor telepon utama untuk tombol "Telepon"
-  phoneNumber: "6281234567890",
-  foundedYear: 2016, // TODO: ganti tahun berdiri asli
-  unitsSold: "5.000+", // TODO: ganti angka unit terjual asli (atau hapus klaim jika belum ada datanya)
+  phoneNumber: "6285177153913",
+  foundedYear: 2019, // TODO: ganti tahun berdiri asli
+  unitsSold: "10.000+", // TODO: ganti angka unit terjual asli (atau hapus klaim jika belum ada datanya)
 } as const;
 
 export function buildWhatsAppLink(message: string, number: string = siteConfig.whatsappNumber) {
@@ -36,41 +36,34 @@ export type Branch = {
 // TODO: ganti alamat, jam operasional, nomor WA, dan link Google Maps tiap cabang dengan data asli.
 export const branches: Branch[] = [
   {
-    id: "cabang-1",
-    name: "Mumtaz MacBook Store — Cabang 1",
-    address: "Alamat lengkap cabang 1 belum diisi, Kota, Provinsi",
-    hours: "Senin–Sabtu, 09.00–20.00 WIB",
+    id: "Pusat",
+    name: "Mumtaz MacBook Store Jogja",
+    address: "Jl. Anggajaya 2 No.110, Sanggrahan, Condongcatur, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55283",
+    hours: "Senin–Minggu, 09.00–21.00 WIB",
     whatsappNumber: siteConfig.whatsappNumber,
-    mapsUrl: "https://maps.google.com",
+    mapsUrl: "https://maps.app.goo.gl/W3AgKZF5f4eyTzYt6",
+  },
+  {
+    id: "cabang-1",
+    name: "Mumtaz MacBook Store Surabaya",
+    address: "Jl. Rungkut Menanggal Harapan B No.J-5, Rungkut Menanggal, Kec. Gn. Anyar, Surabaya, Jawa Timur 60293",
+    hours: "Senin–Minggu, 09.00–21.00 WIB",
+    whatsappNumber: siteConfig.whatsappNumber,
+    mapsUrl: "https://maps.app.goo.gl/TyKhpiY4snMCWvmd9",
   },
   {
     id: "cabang-2",
-    name: "Mumtaz MacBook Store — Cabang 2",
-    address: "Alamat lengkap cabang 2 belum diisi, Kota, Provinsi",
-    hours: "Senin–Sabtu, 09.00–20.00 WIB",
+    name: "Mumtaz MacBook Store Semarang",
+    address: "Jl. Tirto Agung No.52, Pedalangan, Kec. Banyumanik, Kota Semarang, Jawa Tengah 50268",
+    hours: "Senin–Minggu, 09.00–21.00 WIB",
     whatsappNumber: siteConfig.whatsappNumber,
-    mapsUrl: "https://maps.google.com",
+    mapsUrl: "https://maps.app.goo.gl/kk97gbbzNGhkHCpc9",
   },
-  {
-    id: "cabang-3",
-    name: "Mumtaz MacBook Store — Cabang 3",
-    address: "Alamat lengkap cabang 3 belum diisi, Kota, Provinsi",
-    hours: "Senin–Sabtu, 09.00–20.00 WIB",
-    whatsappNumber: siteConfig.whatsappNumber,
-    mapsUrl: "https://maps.google.com",
-  },
-  {
-    id: "cabang-4",
-    name: "Mumtaz MacBook Store — Cabang 4",
-    address: "Alamat lengkap cabang 4 belum diisi, Kota, Provinsi",
-    hours: "Senin–Sabtu, 09.00–20.00 WIB",
-    whatsappNumber: siteConfig.whatsappNumber,
-    mapsUrl: "https://maps.google.com",
-  },
+
 ];
 
 // TODO: ganti link sosial media dengan akun asli, atau hapus yang tidak dipakai.
 export const socials = [
-  { label: "Instagram", href: "https://instagram.com/" },
-  { label: "TikTok", href: "https://tiktok.com/" },
+  { label: "Instagram", href: "https://www.instagram.com/mumtaz.computer/" },
+  { label: "TikTok", href: "https://www.tiktok.com/@mumtazcomputer" },
 ] as const;

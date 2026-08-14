@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
-import { buildWhatsAppLink, siteConfig } from "@/lib/config/site";
+import { BranchSelectorDialog } from "./branch-selector-dialog";
 import { Reveal } from "./reveal";
 
 const noiseTexture =
@@ -11,10 +11,6 @@ const noiseTexture =
 
 export function CtaBanner() {
   const panelRef = useRef<HTMLDivElement>(null);
-
-  const waLink = buildWhatsAppLink(
-    `Halo ${siteConfig.name}, saya ingin konsultasi sebelum membeli/menjual unit Apple.`
-  );
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     const el = panelRef.current;
@@ -84,12 +80,12 @@ export function CtaBanner() {
             <p className="mx-auto mt-4 max-w-md text-sm text-muted-foreground sm:text-base leading-relaxed">
               Tim kami siap bantu dari konsultasi sampai serah terima unit di cabang terdekat.
             </p>
-            <Button asChild size="lg" className="mt-8 bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white rounded-full px-8 py-7 text-base font-semibold shadow-lg shadow-brand-900/10 hover:shadow-xl hover:shadow-brand-900/20 transition-all duration-300 shimmer-button">
-              <a href={waLink} target="_blank" rel="noopener noreferrer">
+            <BranchSelectorDialog customMessage="Halo, saya ingin konsultasi sebelum membeli/menjual unit Apple.">
+              <Button size="lg" className="mt-8 bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white rounded-full px-8 py-7 text-base font-semibold shadow-lg shadow-brand-900/10 hover:shadow-xl hover:shadow-brand-900/20 transition-all duration-300 shimmer-button">
                 <WhatsAppIcon className="size-5" />
                 Chat via WhatsApp Sekarang
-              </a>
-            </Button>
+              </Button>
+            </BranchSelectorDialog>
           </div>
         </div>
       </Reveal>

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
-import { buildWhatsAppLink, siteConfig } from "@/lib/config/site";
+import { BranchSelectorDialog } from "./branch-selector-dialog";
 import { Reveal } from "./reveal";
 
 const steps = [
@@ -19,7 +19,7 @@ const steps = [
   {
     number: "03",
     title: "Transaksi di cabang terdekat",
-    description: "Datang ke salah satu dari 4 cabang, atau atur pengiriman ke lokasi Anda.",
+    description: "Datang ke salah satu dari cabang, atau atur pengiriman ke lokasi Anda.",
   },
   {
     number: "04",
@@ -29,10 +29,6 @@ const steps = [
 ];
 
 export function Process() {
-  const waLink = buildWhatsAppLink(
-    `Halo ${siteConfig.name}, saya ingin mulai proses beli/jual/tukar-tambah unit Apple.`
-  );
-
   return (
     <section className="bg-secondary/30">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
@@ -58,12 +54,12 @@ export function Process() {
         </div>
 
         <Reveal delay={0.2} className="mt-10 flex justify-center">
-          <Button asChild size="lg" className="bg-brand-700 text-white hover:bg-brand-600">
-            <a href={waLink} target="_blank" rel="noopener noreferrer">
+          <BranchSelectorDialog customMessage="Halo, saya ingin mulai proses beli/jual/tukar-tambah unit Apple.">
+            <Button size="lg" className="bg-brand-700 text-white hover:bg-brand-600">
               <WhatsAppIcon className="size-4" />
               Mulai Sekarang via WhatsApp
-            </a>
-          </Button>
+            </Button>
+          </BranchSelectorDialog>
         </Reveal>
       </div>
     </section>

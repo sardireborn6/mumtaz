@@ -5,14 +5,10 @@ import Link from "next/link";
 import { MapPin, ShieldCheck, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
-import { buildWhatsAppLink, siteConfig } from "@/lib/config/site";
+import { BranchSelectorDialog } from "./branch-selector-dialog";
 import { HeroModelCycle } from "./hero-model-cycle";
 
 export function Hero() {
-  const waLink = buildWhatsAppLink(
-    `Halo ${siteConfig.name}, saya ingin konsultasi untuk beli/jual/tukar-tambah unit Apple.`
-  );
-
   return (
     <section className="relative overflow-hidden bg-[#FAFAF9]">
       <div
@@ -63,12 +59,12 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-10 flex flex-col gap-4 sm:flex-row"
           >
-            <Button asChild size="lg" className="bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white rounded-full px-8 py-7 text-base font-semibold shadow-lg shadow-brand-900/10 hover:shadow-xl hover:shadow-brand-900/20 transition-all duration-300 shimmer-button">
-              <a href={waLink} target="_blank" rel="noopener noreferrer">
+            <BranchSelectorDialog customMessage="Halo, saya ingin konsultasi untuk beli/jual/tukar-tambah unit Apple.">
+              <Button size="lg" className="bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white rounded-full px-8 py-7 text-base font-semibold shadow-lg shadow-brand-900/10 hover:shadow-xl hover:shadow-brand-900/20 transition-all duration-300 shimmer-button">
                 <WhatsAppIcon className="size-5" />
                 Konsultasi via WhatsApp
-              </a>
-            </Button>
+              </Button>
+            </BranchSelectorDialog>
             <Button asChild size="lg" variant="outline" className="rounded-full px-8 py-7 text-base font-semibold border-border bg-white/40 hover:bg-white/80 transition-all duration-300 backdrop-blur-sm">
               <Link href="/katalog">Lihat Katalog</Link>
             </Button>

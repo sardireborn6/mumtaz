@@ -14,7 +14,8 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
-import { buildWhatsAppLink, navLinks, siteConfig } from "@/lib/config/site";
+import { navLinks, siteConfig } from "@/lib/config/site";
+import { BranchSelectorDialog } from "./branch-selector-dialog";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -25,10 +26,6 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const waLink = buildWhatsAppLink(
-    `Halo ${siteConfig.name}, saya ingin bertanya tentang produk Apple yang tersedia.`
-  );
 
   return (
     <header
@@ -63,15 +60,14 @@ export function Navbar() {
         </div>
 
         <div className="hidden items-center gap-3 md:flex">
-          <Button
-            asChild
-            className="bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white shadow-md shadow-brand-900/10 hover:shadow-lg hover:shadow-brand-900/20 transition-all duration-300 rounded-full px-6 shimmer-button"
-          >
-            <a href={waLink} target="_blank" rel="noopener noreferrer">
+          <BranchSelectorDialog customMessage="Halo, saya ingin bertanya tentang produk Apple yang tersedia.">
+            <Button
+              className="bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white shadow-md shadow-brand-900/10 hover:shadow-lg hover:shadow-brand-900/20 transition-all duration-300 rounded-full px-6 shimmer-button"
+            >
               <WhatsAppIcon className="size-4" />
               Hubungi Kami
-            </a>
-          </Button>
+            </Button>
+          </BranchSelectorDialog>
         </div>
 
         <Sheet>
@@ -95,12 +91,12 @@ export function Navbar() {
                   </Link>
                 </SheetClose>
               ))}
-              <Button asChild className="mt-4 bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white rounded-full px-6 transition-all duration-300 shadow-md">
-                <a href={waLink} target="_blank" rel="noopener noreferrer">
+              <BranchSelectorDialog customMessage="Halo, saya ingin bertanya tentang produk Apple yang tersedia.">
+                <Button className="mt-4 bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white rounded-full px-6 transition-all duration-300 shadow-md">
                   <WhatsAppIcon className="size-4" />
                   Hubungi via WhatsApp
-                </a>
-              </Button>
+                </Button>
+              </BranchSelectorDialog>
             </div>
           </SheetContent>
         </Sheet>
