@@ -75,7 +75,14 @@ function resolveBranchIds(
 
   const ids: string[] = [];
   for (const token of tokens) {
-    const match = branches.find((b) => branchShortName(b).toLowerCase() === token.toLowerCase());
+    const needle = token.toLowerCase();
+    // Cocokkan ke nama pendek ("Jogja"), nama lengkap ("Mumtaz MacBook Store Jogja"),
+    // atau akhiran nama lengkap — supaya tetap cocok baik nama cabang di site.ts
+    // memakai format "... — Kota" maupun cuma "... Kota" tanpa pemisah "— ".
+    const match = branches.find((b) => {
+      const full = b.name.toLowerCase();
+      return branchShortName(b).toLowerCase() === needle || full === needle || full.endsWith(needle);
+    });
     if (!match) {
       return { ok: false, error: `Cabang "${token}" tidak dikenal.` };
     }

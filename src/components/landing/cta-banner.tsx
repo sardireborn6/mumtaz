@@ -27,7 +27,15 @@ export function CtaBanner() {
           ref={panelRef}
           onMouseMove={handleMouseMove}
           className="group relative overflow-hidden rounded-3xl border border-white/60 bg-white/30 px-6 py-16 text-center shadow-xl backdrop-blur-2xl sm:px-16 sm:py-20"
-          style={{ "--mx": "50%", "--my": "0%" } as React.CSSProperties}
+          style={
+            {
+              "--mx": "50%",
+              "--my": "0%",
+              transitionProperty: "--mx, --my",
+              transitionDuration: "550ms",
+              transitionTimingFunction: "ease-out",
+            } as React.CSSProperties
+          }
         >
           {/* Sheen diagonal — kilau cahaya menembus permukaan seperti air/kaca */}
           <div

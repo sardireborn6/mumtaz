@@ -91,7 +91,7 @@ export function Hero() {
             className="absolute top-12 left-0 flex items-center gap-2 rounded-2xl border border-white/50 bg-white/80 backdrop-blur-md px-4 py-2.5 text-sm font-bold text-foreground shadow-md sm:left-2"
           >
             <ShieldCheck className="size-4 text-accent-gold-700 shrink-0" />
-            Garansi Toko 100%
+            Full Garansi 100%
           </motion.div>
         </div>
       </div>
