@@ -28,7 +28,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="mt-6 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl lg:text-[3.6rem] lg:leading-[1.08] font-heading"
           >
-            Unit Apple <span className="text-gradient-brand">Original</span> &amp; <span className="text-gradient-gold">Bergaransi</span> Mewah.
+            Unit Apple <span className="text-gradient-brand">Original</span> &amp; <span className="text-gradient-gold">Bergaransi</span> Sampai 1 Tahun.
           </motion.h1>
 
           <motion.p

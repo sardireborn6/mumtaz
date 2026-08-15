@@ -3,46 +3,23 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import Papa from "papaparse";
 import { prisma } from "@/lib/prisma";
 import { verifySession } from "@/lib/auth/session";
 import { uniqueProductSlug } from "@/lib/slugify";
 import { saveUploadedImages, deleteUploadedImage } from "@/lib/upload";
-import {
-  PRODUCT_CATEGORIES,
-  PRODUCT_CONDITIONS,
-  CONDITION_GRADES,
-} from "@/lib/data/products";
+import { productBaseFields, refineOriginalPrice } from "@/lib/validation/product-schema";
+import { branches } from "@/lib/config/site";
+import { CSV_COLUMNS, parseCsvRecord } from "@/lib/import-export/product-csv";
 
-const productSchema = z
-  .object({
-    name: z.string().min(2, "Nama produk minimal 2 karakter."),
-    category: z.enum(PRODUCT_CATEGORIES as [string, ...string[]]),
-    variant: z.string().min(1, "Varian wajib diisi."),
-    condition: z.enum(PRODUCT_CONDITIONS as [string, ...string[]]),
-    conditionGrade: z.union([z.enum(CONDITION_GRADES as [string, ...string[]]), z.literal("")]),
-    chip: z.string().min(1, "Chip wajib diisi."),
-    ram: z.string().min(1, "RAM wajib diisi."),
-    storage: z.string().min(1, "Storage wajib diisi."),
-    price: z.coerce.number().int().positive("Harga harus lebih dari 0."),
-    originalPrice: z
-      .string()
-      .optional()
-      .transform((v) => (v && v.trim() !== "" ? Number(v) : null))
-      .refine(
-        (v) => v === null || (Number.isInteger(v) && v > 0),
-        "Harga coret harus lebih dari 0."
-      ),
-    stock: z.coerce.number().int().min(0),
-    warrantyMonths: z.coerce.number().int().min(0),
-    description: z.string().min(1, "Deskripsi wajib diisi."),
+const productSchema = refineOriginalPrice(
+  z.object({
+    ...productBaseFields,
     active: z.union([z.literal("on"), z.null()]).optional(),
     branchIds: z.array(z.string()).default([]),
     existingImages: z.string().default("[]"),
   })
-  .refine((data) => data.originalPrice === null || data.originalPrice > data.price, {
-    message: "Harga coret harus lebih besar dari harga jual.",
-    path: ["originalPrice"],
-  });
+);
 
 export type ProductFormState = { error?: string } | undefined;
 
@@ -221,4 +198,144 @@ export async function updateProductStock(id: string, stock: number) {
   revalidatePath("/");
   revalidatePath("/katalog");
   revalidatePath("/admin/produk");
+}
+
+export type ImportProductsState =
+  | {
+      done: true;
+      created: number;
+      updated: number;
+      failed: number;
+      errors: { row: number; message: string }[];
+    }
+  | undefined;
+
+const MAX_IMPORT_ROWS = 5000;
+
+function matchKey(name: string, variant: string) {
+  return `${name.trim().toLowerCase()}||${variant.trim().toLowerCase()}`;
+}
+
+export async function importProducts(
+  _prevState: ImportProductsState,
+  formData: FormData
+): Promise<ImportProductsState> {
+  await verifySession();
+
+  const file = formData.get("file");
+  if (!(file instanceof File) || file.size === 0) {
+    return {
+      done: true,
+      created: 0,
+      updated: 0,
+      failed: 0,
+      errors: [{ row: 0, message: "Pilih file CSV terlebih dahulu." }],
+    };
+  }
+
+  const rawText = await file.text();
+  const text = rawText.startsWith(String.fromCharCode(0xfeff)) ? rawText.slice(1) : rawText;
+  const parsed = Papa.parse<Record<string, string>>(text, {
+    header: true,
+    skipEmptyLines: true,
+  });
+
+  const headers = parsed.meta.fields ?? [];
+  const missingColumns = CSV_COLUMNS.filter((col) => !headers.includes(col));
+  if (missingColumns.length > 0) {
+    return {
+      done: true,
+      created: 0,
+      updated: 0,
+      failed: 0,
+      errors: [{ row: 0, message: `Kolom wajib hilang di CSV: ${missingColumns.join(", ")}.` }],
+    };
+  }
+
+  const rows = parsed.data;
+  if (rows.length === 0) {
+    return {
+      done: true,
+      created: 0,
+      updated: 0,
+      failed: 0,
+      errors: [{ row: 0, message: "File CSV tidak berisi data." }],
+    };
+  }
+  if (rows.length > MAX_IMPORT_ROWS) {
+    return {
+      done: true,
+      created: 0,
+      updated: 0,
+      failed: 0,
+      errors: [{ row: 0, message: `Maksimal ${MAX_IMPORT_ROWS} baris per impor.` }],
+    };
+  }
+
+  const existingProducts = await prisma.product.findMany({
+    select: { id: true, name: true, variant: true },
+  });
+  const idByKey = new Map(existingProducts.map((p) => [matchKey(p.name, p.variant), p.id]));
+
+  let created = 0;
+  let updated = 0;
+  let failed = 0;
+  const errors: { row: number; message: string }[] = [];
+
+  for (let i = 0; i < rows.length; i++) {
+    const rowNumber = i + 2; // baris 1 = header
+    const result = parseCsvRecord(rows[i], branches);
+    if (!result.ok) {
+      failed++;
+      errors.push({ row: rowNumber, message: result.error });
+      continue;
+    }
+
+    const { data } = result;
+    const productData = {
+      name: data.name,
+      category: data.category,
+      variant: data.variant,
+      condition: data.condition,
+      conditionGrade: data.conditionGrade,
+      chip: data.chip,
+      ram: data.ram,
+      storage: data.storage,
+      price: data.price,
+      originalPrice: data.originalPrice,
+      stock: data.stock,
+      branchIds: JSON.stringify(data.branchIds),
+      warrantyMonths: data.warrantyMonths,
+      description: data.description,
+      active: data.active,
+    };
+
+    try {
+      const key = matchKey(data.name, data.variant);
+      const existingId = idByKey.get(key);
+
+      if (existingId) {
+        // images tidak disentuh sama sekali di sini — foto yang sudah ada tetap.
+        await prisma.product.update({ where: { id: existingId }, data: productData });
+        updated++;
+      } else {
+        const id = await uniqueProductSlug(data.name);
+        await prisma.product.create({ data: { id, ...productData } });
+        idByKey.set(key, id);
+        created++;
+      }
+    } catch (e) {
+      failed++;
+      errors.push({
+        row: rowNumber,
+        message: e instanceof Error ? e.message : "Gagal menyimpan baris ini.",
+      });
+    }
+  }
+
+  revalidatePath("/");
+  revalidatePath("/katalog");
+  revalidatePath("/admin/produk");
+
+  return { done: true, created, updated, failed, errors };
 }
