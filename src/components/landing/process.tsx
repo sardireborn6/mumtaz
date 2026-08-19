@@ -31,7 +31,7 @@ const steps = [
 export function Process() {
   return (
     <section className="bg-secondary/30">
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
         <Reveal className="max-w-xl">
           <p className="text-sm font-medium text-brand-700">Proses Beli / Jual / Tukar Tambah</p>
           <h2 className="mt-2 text-3xl font-semibold tracking-tight text-foreground">
@@ -39,7 +39,33 @@ export function Process() {
           </h2>
         </Reveal>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Mobile: timeline vertikal bernomor, lebih jelas urutannya daripada kartu bertumpuk */}
+        <div className="mt-10 sm:hidden">
+          {steps.map((step, i) => (
+            <Reveal key={step.number} delay={i * 0.06}>
+              <div className="relative flex gap-4 pb-8 last:pb-0">
+                {i < steps.length - 1 && (
+                  <span
+                    aria-hidden
+                    className="absolute left-5 top-11 bottom-0 w-px bg-border"
+                  />
+                )}
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-full border border-brand-700/20 bg-white text-sm font-bold text-brand-700 shadow-sm">
+                  {i + 1}
+                </div>
+                <div className="flex-1 rounded-2xl border border-border bg-card p-4">
+                  <h3 className="font-semibold text-foreground">{step.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                    {step.description}
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Desktop/tablet: grid seperti semula */}
+        <div className="mt-10 hidden sm:grid sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
           {steps.map((step, i) => (
             <Reveal key={step.number} delay={i * 0.06}>
               <div className="h-full rounded-2xl border border-border bg-card p-6">

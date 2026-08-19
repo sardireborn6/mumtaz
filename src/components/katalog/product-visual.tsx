@@ -12,9 +12,11 @@ import { getCategoryImage } from "@/lib/data/category-images";
 export function ProductVisual({
   product,
   className,
+  sizes = "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw",
 }: {
   product: Product;
   className?: string;
+  sizes?: string;
 }) {
   const realPhoto = product.images[0];
   const photo = realPhoto ?? getCategoryImage(product);
@@ -26,7 +28,7 @@ export function ProductVisual({
         src={photo}
         alt={product.name}
         fill
-        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+        sizes={sizes}
         className="object-cover"
       />
       {isIllustrative && (

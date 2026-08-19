@@ -62,6 +62,74 @@ export const branches: Branch[] = [
 
 ];
 
+export type Testimonial = {
+  id: string;
+  name: string;
+  city: string;
+  rating: number;
+  comment: string;
+};
+
+// TODO: ganti dengan testimoni pelanggan asli (nama, kota, rating, komentar) sebelum go-live.
+export const testimonials: Testimonial[] = [
+  {
+    id: "testi-1",
+    name: "Rizal",
+    city: "Surabaya",
+    rating: 5,
+    comment:
+      "Beli MacBook Pro second di sini, kondisinya bener-bener mulus sesuai deskripsi. Garansinya juga jelas.",
+  },
+  {
+    id: "testi-2",
+    name: "Dinda",
+    city: "Semarang",
+    rating: 5,
+    comment:
+      "Proses tukar tambah iPad lama ke yang baru cepat, harganya juga wajar. Pelayanan ramah.",
+  },
+  {
+    id: "testi-3",
+    name: "Farhan",
+    city: "Bandung",
+    rating: 4,
+    comment:
+      "Konsultasi via WhatsApp responsif, dibantu pilih spek Mac Mini sesuai kebutuhan kerja.",
+  },
+  {
+    id: "testi-4",
+    name: "Salsabila",
+    city: "Yogyakarta",
+    rating: 5,
+    comment:
+      "Datang langsung ke store Jogja, unitnya bisa dicoba dulu sebelum bayar. Jadi lebih yakin belinya.",
+  },
+  {
+    id: "testi-5",
+    name: "Bagas",
+    city: "Malang",
+    rating: 5,
+    comment:
+      "Sudah 3 kali beli di sini, dari iMac sampai AirPods, semua original dan pengiriman rapi.",
+  },
+  {
+    id: "testi-6",
+    name: "Putri",
+    city: "Jakarta",
+    rating: 4,
+    comment:
+      "Harga bersaing dibanding toko lain, admin juga sabar jawab pertanyaan detail soal baterai health.",
+  },
+  {
+    id: "testi-7",
+    name: "Yusuf",
+    city: "Solo",
+    rating: 5,
+    comment:
+      "Klaim garansi MacBook Air kemarin diproses cepat tanpa ribet. Recommended buat beli Apple second.",
+  },
+];
+
 // TODO: ganti link sosial media dengan akun asli, atau hapus yang tidak dipakai.
 export const socials = [
   { label: "Instagram", href: "https://www.instagram.com/mumtaz.computer/" },

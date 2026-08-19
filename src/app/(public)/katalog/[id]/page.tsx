@@ -182,7 +182,7 @@ export default async function ProductDetailPage({
             <p className="mt-2 text-sm text-muted-foreground">
               Rekomendasi MacBook atau unit Apple sejenis yang mungkin menarik bagi Anda.
             </p>
-            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-8 grid grid-cols-3 gap-3 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
               {relatedProducts.map((p) => (
                 <ProductCard key={p.id} product={p} />
               ))}

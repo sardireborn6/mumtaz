@@ -26,7 +26,7 @@ export function CtaBanner() {
         <div
           ref={panelRef}
           onMouseMove={handleMouseMove}
-          className="group relative overflow-hidden rounded-3xl border border-white/60 bg-white/30 px-6 py-16 text-center shadow-xl backdrop-blur-2xl sm:px-16 sm:py-20"
+          className="group relative overflow-hidden rounded-3xl border border-white/60 bg-white/30 px-5 py-10 text-center shadow-xl backdrop-blur-2xl sm:px-16 sm:py-20"
           style={
             {
               "--mx": "50%",
@@ -86,10 +86,10 @@ export function CtaBanner() {
               Siap beli, jual, atau tukar-tambah unit Apple Anda?
             </h2>
             <p className="mx-auto mt-4 max-w-md text-sm text-muted-foreground sm:text-base leading-relaxed">
-              Tim kami siap bantu dari konsultasi sampai serah terima unit di cabang terdekat.
+              Tim kami siap bantu dari konsultasi sampai serah terima unit di store terdekat.
             </p>
             <BranchSelectorDialog customMessage="Halo, saya ingin konsultasi sebelum membeli/menjual unit Apple.">
-              <Button size="lg" className="mt-8 bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white rounded-full px-8 py-7 text-base font-semibold shadow-lg shadow-brand-900/10 hover:shadow-xl hover:shadow-brand-900/20 transition-all duration-300 shimmer-button">
+              <Button size="lg" className="mt-8 bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white rounded-full px-6 py-5 text-sm font-semibold shadow-lg shadow-brand-900/10 hover:shadow-xl hover:shadow-brand-900/20 transition-all duration-300 shimmer-button sm:px-8 sm:py-7 sm:text-base">
                 <WhatsAppIcon className="size-5" />
                 Chat via WhatsApp Sekarang
               </Button>

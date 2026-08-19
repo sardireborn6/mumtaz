@@ -62,3 +62,15 @@ model Branch {
   updatedAt      DateTime @updatedAt
 }
 
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  city      String
+  rating    Int      @default(5)
+  comment   String
+  active    Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+

@@ -1,8 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Reveal } from "./reveal";
+import { useSnapCarousel } from "@/hooks/use-snap-carousel";
 
 const categories = [
   {
@@ -27,17 +30,51 @@ const categories = [
   },
 ] as const;
 
+const AUTO_SLIDE_MS = 3500;
+
 export function Categories() {
+  const { trackRef, pauseAutoSlide } = useSnapCarousel({
+    length: categories.length,
+    autoSlideMs: AUTO_SLIDE_MS,
+  });
+
   return (
-    <section id="katalog" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-      <Reveal className="max-w-xl">
+    <section id="katalog" className="mx-auto max-w-7xl py-14 sm:py-24">
+      <Reveal className="max-w-xl px-4 sm:px-6 lg:px-8">
         <p className="text-xs uppercase font-bold tracking-[0.2em] text-brand-700">Kategori Produk</p>
         <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
           Pilih kategori, langsung lihat unit yang tersedia
         </h2>
       </Reveal>
 
-      <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Mobile: carousel geser manual/otomatis, kartu lebih besar & sengaja terpotong di ujung */}
+      <div className="mt-10 sm:hidden" onTouchStart={pauseAutoSlide}>
+        <div
+          ref={trackRef}
+          className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 pb-2 cursor-grab select-none active:cursor-grabbing [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {categories.map((cat) => (
+            <Link
+              key={cat.name}
+              href={`/katalog?kategori=${encodeURIComponent(cat.name)}`}
+              className="flex w-[42vw] shrink-0 snap-start flex-col overflow-hidden rounded-3xl border border-white/50 bg-white/70 shadow-sm backdrop-blur-md"
+            >
+              <div className="relative aspect-[3/4] overflow-hidden bg-secondary/40">
+                <Image src={cat.image} alt={cat.name} fill sizes="42vw" className="object-cover" />
+              </div>
+              <div className="flex flex-1 flex-col p-3">
+                <h3 className="text-sm font-bold tracking-tight text-foreground">{cat.name}</h3>
+                <p className="mt-1 line-clamp-2 text-xs leading-snug text-muted-foreground">
+                  {cat.description}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop/tablet: grid seperti semula */}
+      <div className="mt-12 hidden px-4 sm:grid sm:grid-cols-2 sm:gap-6 sm:px-6 lg:grid-cols-4 lg:px-8">
         {categories.map((cat, i) => (
           <Reveal key={cat.name} delay={i * 0.06}>
             <Link

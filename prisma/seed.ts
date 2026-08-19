@@ -272,10 +272,98 @@ async function seedBranches() {
   console.log(`Seeded ${defaultBranches.length} cabang.`);
 }
 
+const defaultTestimonials = [
+  {
+    id: "testi-1",
+    name: "Rizal",
+    city: "Surabaya",
+    rating: 5,
+    comment:
+      "Beli MacBook Pro second di sini, kondisinya bener-bener mulus sesuai deskripsi. Garansinya juga jelas.",
+    order: 1,
+  },
+  {
+    id: "testi-2",
+    name: "Dinda",
+    city: "Semarang",
+    rating: 5,
+    comment: "Proses tukar tambah iPad lama ke yang baru cepat, harganya juga wajar. Pelayanan ramah.",
+    order: 2,
+  },
+  {
+    id: "testi-3",
+    name: "Farhan",
+    city: "Bandung",
+    rating: 4,
+    comment: "Konsultasi via WhatsApp responsif, dibantu pilih spek Mac Mini sesuai kebutuhan kerja.",
+    order: 3,
+  },
+  {
+    id: "testi-4",
+    name: "Salsabila",
+    city: "Yogyakarta",
+    rating: 5,
+    comment:
+      "Datang langsung ke store Jogja, unitnya bisa dicoba dulu sebelum bayar. Jadi lebih yakin belinya.",
+    order: 4,
+  },
+  {
+    id: "testi-5",
+    name: "Bagas",
+    city: "Malang",
+    rating: 5,
+    comment: "Sudah 3 kali beli di sini, dari iMac sampai AirPods, semua original dan pengiriman rapi.",
+    order: 5,
+  },
+  {
+    id: "testi-6",
+    name: "Putri",
+    city: "Jakarta",
+    rating: 4,
+    comment:
+      "Harga bersaing dibanding toko lain, admin juga sabar jawab pertanyaan detail soal baterai health.",
+    order: 6,
+  },
+  {
+    id: "testi-7",
+    name: "Yusuf",
+    city: "Solo",
+    rating: 5,
+    comment: "Klaim garansi MacBook Air kemarin diproses cepat tanpa ribet. Recommended buat beli Apple second.",
+    order: 7,
+  },
+];
+
+async function seedTestimonials() {
+  for (const t of defaultTestimonials) {
+    await prisma.testimonial.upsert({
+      where: { id: t.id },
+      update: {
+        name: t.name,
+        city: t.city,
+        rating: t.rating,
+        comment: t.comment,
+        order: t.order,
+      },
+      create: {
+        id: t.id,
+        name: t.name,
+        city: t.city,
+        rating: t.rating,
+        comment: t.comment,
+        order: t.order,
+        active: true,
+      },
+    });
+  }
+  console.log(`Seeded ${defaultTestimonials.length} testimoni.`);
+}
+
 async function main() {
   await seedProducts();
   await seedAdmin();
   await seedBranches();
+  await seedTestimonials();
 }
 
 main()

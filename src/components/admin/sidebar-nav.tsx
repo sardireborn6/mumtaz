@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Package, MapPin, LogOut } from "lucide-react";
+import { LayoutDashboard, Package, MapPin, MessageSquareQuote, LogOut } from "lucide-react";
 import { logout } from "@/lib/auth/actions";
 
 const links = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/produk", label: "Produk", icon: Package },
   { href: "/admin/cabang", label: "Cabang", icon: MapPin },
+  { href: "/admin/testimoni", label: "Testimoni", icon: MessageSquareQuote },
 ];
 
 export function SidebarNav() {

@@ -20,7 +20,7 @@ export function Hero() {
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(50%_50%_at_15%_100%,var(--accent-gold-100),transparent_70%)] opacity-60"
       />
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:py-32 lg:px-8">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 py-14 sm:gap-12 sm:px-6 sm:py-20 lg:grid-cols-2 lg:gap-16 lg:py-32 lg:px-8">
         <div>
           <motion.h1
             initial={{ opacity: 0, y: 14 }}
@@ -45,7 +45,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-10 flex flex-col gap-4 sm:flex-row"
+            className="mt-10 hidden gap-4 sm:flex"
           >
             <BranchSelectorDialog customMessage="Halo, saya ingin konsultasi untuk beli/jual/tukar-tambah unit Apple.">
               <Button size="lg" className="bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white rounded-full px-8 py-7 text-base font-semibold shadow-lg shadow-brand-900/10 hover:shadow-xl hover:shadow-brand-900/20 transition-all duration-300 shimmer-button">
@@ -68,7 +68,7 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="relative mx-auto aspect-square w-full max-w-md"
+            className="relative mx-auto aspect-square w-full max-w-[260px] sm:max-w-md"
           >
             <HeroModelCycle className="h-full w-full" />
           </motion.div>
@@ -78,7 +78,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 10, x: 10 }}
             animate={{ opacity: 1, y: 0, x: 0 }}
             transition={{ duration: 0.5, delay: 0.65 }}
-            className="absolute bottom-6 right-0 flex items-center gap-2 rounded-2xl border border-white/50 bg-white/80 backdrop-blur-md px-4 py-2.5 text-sm font-bold text-foreground shadow-md sm:right-2"
+            className="absolute bottom-6 right-1 flex items-center gap-1.5 rounded-2xl border border-white/50 bg-white/80 backdrop-blur-md px-3 py-2 text-xs font-bold text-foreground shadow-md sm:right-2 sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm"
           >
             <MapPin className="size-4 text-brand-700 shrink-0" />
             Kirim Seluruh Indonesia
@@ -88,7 +88,7 @@ export function Hero() {
             initial={{ opacity: 0, y: -10, x: -10 }}
             animate={{ opacity: 1, y: 0, x: 0 }}
             transition={{ duration: 0.5, delay: 0.75 }}
-            className="absolute top-12 left-0 flex items-center gap-2 rounded-2xl border border-white/50 bg-white/80 backdrop-blur-md px-4 py-2.5 text-sm font-bold text-foreground shadow-md sm:left-2"
+            className="absolute top-12 left-1 flex items-center gap-1.5 rounded-2xl border border-white/50 bg-white/80 backdrop-blur-md px-3 py-2 text-xs font-bold text-foreground shadow-md sm:left-2 sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm"
           >
             <ShieldCheck className="size-4 text-accent-gold-700 shrink-0" />
             Full Garansi 100%

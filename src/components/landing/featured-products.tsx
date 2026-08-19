@@ -6,7 +6,7 @@ import { Reveal } from "./reveal";
 export function FeaturedProducts({ products }: { products: Product[] }) {
   return (
     <section className="bg-gradient-to-b from-transparent to-secondary/35">
-      <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-24 lg:px-8">
         <Reveal className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end border-b border-border/40 pb-6">
           <div>
             <p className="text-xs uppercase font-bold tracking-[0.2em] text-brand-700">Produk Unggulan</p>
@@ -22,7 +22,7 @@ export function FeaturedProducts({ products }: { products: Product[] }) {
           </Link>
         </Reveal>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid grid-cols-3 gap-3 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {products.map((product, i) => (
             <Reveal key={product.id} delay={i * 0.05}>
               <ProductCard product={product} />

@@ -10,11 +10,13 @@ import { FAQ } from "@/components/landing/faq";
 import { CtaBanner } from "@/components/landing/cta-banner";
 import { getFeaturedProducts } from "@/lib/data/get-products";
 import { getBranches } from "@/lib/data/get-branches";
+import { getTestimonials } from "@/lib/data/get-testimonials";
 
 export default async function Home() {
-  const [featuredProducts, branches] = await Promise.all([
+  const [featuredProducts, branches, testimonials] = await Promise.all([
     getFeaturedProducts(),
     getBranches(),
+    getTestimonials(),
   ]);
 
   return (
@@ -26,7 +28,7 @@ export default async function Home() {
       <WhyUs />
       <Process />
       <Branches branches={branches} />
-      <Testimonials />
+      <Testimonials testimonials={testimonials} />
       <FAQ />
       <CtaBanner />
     </main>

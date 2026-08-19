@@ -5,6 +5,7 @@ import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
 import { BranchSelectorDialog } from "@/components/landing/branch-selector-dialog";
 import { branches } from "@/lib/config/site";
 import { type Product } from "@/lib/data/products";
+import { ProductCardCompact } from "./product-card-compact";
 import { ProductPrice } from "./product-price";
 import { ProductVisual } from "./product-visual";
 
@@ -16,7 +17,12 @@ export function ProductCard({ product }: { product: Product }) {
     .filter(Boolean);
 
   return (
-    <div className="flex h-full flex-col rounded-3xl border border-white/50 bg-white/70 p-4 shadow-sm backdrop-blur-md transition-all duration-500 hover:-translate-y-2 hover:border-brand-300/60 hover:shadow-[0_22px_40px_-15px_rgba(15,118,110,0.12)] group">
+    <div className="h-full">
+      <div className="sm:hidden">
+        <ProductCardCompact product={product} />
+      </div>
+
+      <div className="hidden h-full flex-col rounded-3xl border border-white/50 bg-white/70 p-4 shadow-sm backdrop-blur-md transition-all duration-500 hover:-translate-y-2 hover:border-brand-300/60 hover:shadow-[0_22px_40px_-15px_rgba(15,118,110,0.12)] group sm:flex">
       <Link href={`/katalog/${product.id}`} className="block overflow-hidden rounded-2xl">
         <ProductVisual product={product} className="aspect-[4/3] w-full transition-transform duration-700 group-hover:scale-[1.04]" />
       </Link>
@@ -65,6 +71,7 @@ export function ProductCard({ product }: { product: Product }) {
             </Button>
           </BranchSelectorDialog>
         </div>
+      </div>
       </div>
     </div>
   );
